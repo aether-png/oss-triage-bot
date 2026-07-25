@@ -1,0 +1,19 @@
+{
+  "repos": [
+    "langgenius/dify",
+    "ActivityWatch/activitywatch",
+    "TranslucentTB/TranslucentTB",
+    "qbittorrent/qBittorrent",
+    "ProtonVPN/linux-app",
+    "ollama/ollama"
+  ],
+  "_comment": "Curated by hand on purpose, trimmed to realistic bets. brave-browser, tdesktop, audacity, cpython, vscode, chromium are real OSS but too large/competitive to break into solo right now — parked below, revisit only after merged PRs land here.",
+  "_parked_not_active": [
+    "brave/brave-browser",
+    "telegramdesktop/tdesktop",
+    "audacity/audacity",
+    "python/cpython",
+    "microsoft/vscode",
+    "chromium/chromium"
+  ]
+}
