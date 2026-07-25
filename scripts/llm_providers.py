@@ -18,6 +18,8 @@ import time
 
 _GROQ_MIN_INTERVAL = 2.1
 _last_groq_request = 0.0
+_groq_requests = 0
+_GROQ_MAX_REQUESTS_PER_RUN = 25
 
 def _wait_for_groq_slot():
     global _last_groq_request
@@ -43,7 +45,11 @@ def _call_groq(prompt):
     key = os.environ.get("GROQ_API_KEY")
     if not key:
         return None
+    global _groq_requests
+    if _groq_requests >= GROQ_MAX_REQUESTS_PER_RUN:
+        return None
     _wait_for_groq_slot()
+    _groq_requests += 1
     body = {
         "model": "llama-3.3-70b-versatile",
         "messages": [{"role": "user", "content": prompt}],
