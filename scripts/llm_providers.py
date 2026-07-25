@@ -13,7 +13,19 @@ import json
 import os
 import urllib.request
 import urllib.error
+import time
 
+
+_GROQ_MIN_INTERVAL = 2.1
+_last_groq_request = 0.0
+
+def _wait_for_groq_slot():
+    global _last_groq_request
+    now = time.monotonic()
+    delay = _last_groq_request + _GROQ_MIN_INTERVAL - now
+    if delay > 0:
+        time.sleep(delay)
+    _last_groq_request = time.monotonic()
 
 def _post_json(url, headers, payload, timeout=20):
     data = json.dumps(payload).encode("utf-8")
@@ -31,6 +43,7 @@ def _call_groq(prompt):
     key = os.environ.get("GROQ_API_KEY")
     if not key:
         return None
+    _wait_for_groq_slot()
     body = {
         "model": "llama-3.3-70b-versatile",
         "messages": [{"role": "user", "content": prompt}],
