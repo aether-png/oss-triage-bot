@@ -1,6 +1,8 @@
 name: Daily OSS Triage
 
 on:
+  push:
+    branches: [master]
   schedule:
     # 03:00 UTC = 08:30 IST — adjust to taste
     - cron: '0 3 * * *'
