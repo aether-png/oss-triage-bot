@@ -46,7 +46,7 @@ def _call_groq(prompt):
     if not key:
         return None
     global _groq_requests
-    if _groq_requests >= GROQ_MAX_REQUESTS_PER_RUN:
+    if _groq_requests >= _GROQ_MAX_REQUESTS_PER_RUN:
         return None
     _wait_for_groq_slot()
     _groq_requests += 1
