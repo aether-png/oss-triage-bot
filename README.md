@@ -1,6 +1,6 @@
 # OSS Triage Bot
 
-A tiny, free, no-GPU daily digest for finding **real** open source issues
+A tiny, free, no-GPU weekly digest for finding **real** open source issues
 worth your time — not typo fixes, not doc stubs, not issues that are
 already crowded with comments.
 
@@ -31,7 +31,7 @@ every bit of the actual investigation, fix, and PR.
 
    The bot tries providers in that order and falls back automatically.
    If you add none, it still runs — filtering drops to heuristics only.
-4. Enable Actions on your fork if prompted. That's it — it runs daily
+4. Enable Actions on your fork if prompted. That's it — it runs weekly
    on the schedule in `.github/workflows/daily-triage.yml`, and you can
    trigger a manual run anytime from the **Actions** tab
    ("Run workflow").

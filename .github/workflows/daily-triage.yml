@@ -1,11 +1,11 @@
-name: Daily OSS Triage
+name: Weekly OSS Triage
 
 on:
   push:
     branches: [master]
   schedule:
     # 03:00 UTC = 08:30 IST — adjust to taste
-    - cron: '0 3 * * *'
+    - cron: '0 3 * * 1'
   workflow_dispatch: {}   # lets you trigger it manually from the Actions tab
 
 permissions:
