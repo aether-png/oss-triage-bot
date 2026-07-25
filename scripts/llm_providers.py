@@ -17,9 +17,14 @@ import urllib.error
 
 def _post_json(url, headers, payload, timeout=20):
     data = json.dumps(payload).encode("utf-8")
-    req = urllib.request.Request(url, data=data, headers=headers, method="POST")
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
-        return json.loads(resp.read().decode("utf-8"))
+    request_headers = {"User-Agent": "oss-triage-bot/1.0", **headers}
+    req = urllib.request.Request(url, data=data, headers=request_headers, method="POST")
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            return json.loads(resp.read().decode("utf-8"))
+    except urllib.error.HTTPError as e:
+        detail = e.read().decode("utf-8", errors="replace").strip()
+        raise RuntimeError(f"HTTP {e.code} from {url}: {detail}") from e
 
 
 def _call_groq(prompt):
@@ -108,7 +113,7 @@ def ask_llm(prompt):
             result = fn(prompt)
             if result:
                 return name, result
-        except (urllib.error.URLError, urllib.error.HTTPError, KeyError, TimeoutError) as e:
+        except (urllib.error.URLError, urllib.error.HTTPError, KeyError, TimeoutError, RuntimeError) as e:
             print(f"  [llm] {name} failed: {e}")
             continue
     return None, None
